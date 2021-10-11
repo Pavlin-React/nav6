@@ -1,9 +1,10 @@
 import React from 'react'
 import { SafeAreaView,TouchableOpacity, Text, View } from 'react-native'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import GamingImg from './assets/game.svg'
+import GamingImg from './src/assets/gaming.svg'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from './src/screens/HomeScreen'
 
 let Stack = createNativeStackNavigator()
 
@@ -12,7 +13,7 @@ let App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name='Main' component={Main} options={{headerShown: false}} />
-        <Stack.Screen name='Home' component={Home} />
+        <Stack.Screen name='Home' component={HomeScreen} options={{headerShown: false}} />
       </Stack.Navigator>
     </NavigationContainer>
   )
@@ -63,16 +64,6 @@ const Main = ({navigation}) => {
     </TouchableOpacity>
       
     </SafeAreaView>
-  )
-}
-
-let Home = () => {
-  return(
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} >
-    <Text>
-      Home Screen
-    </Text>
-  </View>
   )
 }
 
