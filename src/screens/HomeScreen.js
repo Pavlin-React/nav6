@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -10,14 +10,22 @@ import {
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Carousel from 'react-native-snap-carousel';
-import {sliderData} from '../model/data'
-import { windowWidth} from '../utils/Dimensions'
-import BannerSlider from '../components/BannerSlider'
+import { sliderData, freeGames, paidGames } from '../model/data';
+import {windowWidth} from '../utils/Dimensions';
+import BannerSlider from '../components/BannerSlider';
+import CustomSwitch from '../components/CustomSwitch';
+import ListItem from '../components/ListItem'
 
 let HomeScreen = () => {
 
+  let [gamesTab, setGamesTab] = useState(1)
+
   let renderBanner = ({index, item}) => {
-    return <BannerSlider data={item} />
+    return <BannerSlider data={item} />;
+  };
+
+  let onSelectSwitch = (value) => {
+    setGamesTab(value)
   }
 
   return (
@@ -27,7 +35,7 @@ let HomeScreen = () => {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginBottom: 15,
+            marginBottom: 20,
           }}>
           <Text style={{fontSize: 16, fontFamily: 'Roboto-Medium'}}>
             Hello John Smith
@@ -75,8 +83,27 @@ let HomeScreen = () => {
           data={sliderData}
           renderItem={renderBanner}
           sliderWidth={windowWidth - 40}
-          itemWidth= {300}
+          itemWidth={300}
+          loop={true}
         />
+        <View style={{marginVertical: 20}} >
+          <CustomSwitch
+            option1="Free to play"
+            option2="Paid Games"
+            selectionMode={1}
+            onSelectSwitch={onSelectSwitch}
+          />
+        </View>
+        {gamesTab == 1 && 
+          freeGames.map(item => (
+            <ListItem key={item.id} />
+          ))
+        }
+        {gamesTab == 2 &&
+          paidGames.map(item => (
+            <ListItem key={item.id} />
+          ))
+        }
       </ScrollView>
     </SafeAreaView>
   );
